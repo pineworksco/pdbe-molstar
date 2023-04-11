@@ -677,6 +677,12 @@ class PDBeMolstarPlugin {
             PluginCommands.Canvas3D.SetSettings(this.plugin, { settings: { trackball: { ...trackball, animate: toggleSpinParam } } });
             if (resetCamera) PluginCommands.Camera.Reset(this.plugin, { });
         },
+        playAnimation: (targetFps: number = 8) => {
+            this.plugin.managers.animation.play(AnimateModelIndex, {
+                duration: { name: 'computed', params: { targetFps: targetFps } },
+                mode: { name: 'loop', params: { direction: 'forward' } }
+            });
+        },
         focus: async (params: QueryParam[], structureNumber?: number) => {
             const loci = this.getLociForParams(params, structureNumber);
             this.plugin.managers.camera.focusLoci(loci);
